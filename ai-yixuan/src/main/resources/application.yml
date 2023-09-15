@@ -1,0 +1,67 @@
+spring:
+  aop:
+    proxy-target-class: true
+  profiles:
+    active: dev
+  web:
+    resources:
+      static-locations: classpath:/static/
+  mvc:
+    static-path-pattern: /static/**
+    dispatch-options-request: true
+    throw-exception-if-no-handler-found: true
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jackson:
+    # 时区，配合日期格式化使用，如果不设置，解析日期时会默认来源为UTC世界标准时区，再根据系统时区转换，不一致的话将产生差异
+    time-zone: GMT+8
+    #日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    #序列化的配置参数集
+    serialization:
+      #格式化输出
+      indent_output: true
+      #无法解析空对象时抛出异常，false即忽略这种情况不抛异常
+      fail_on_empty_beans: false
+    #指定属性在什么情况下会包含在序列化结果中，这里设置不为空
+    #defaultPropertyInclusion: NON_EMPTY
+    #反序列化配置
+    deserialization:
+      #未知的属性返回失败，false 即允许反序列化对象与序列存在属性不同的情况
+      fail_on_unknown_properties: false
+    parser:
+      #允许出现特殊字符和转义符
+      allow_unquoted_control_chars: true
+      #允许出现单引号
+      allow_single_quotes: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
+
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期（默认30分钟）
+  expireTime: 360
+  # 采购系统token
+  tk: "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjU2ZDkyN2JlLWUzNmQtNDY0NS05MzU3LTYwNGQyYmE3MTNlMSJ9.2IHA0oo3FJFiqAUr2hD5JUIb3iEhEOtifnnZiZgkM5j0kN7BRGu8wevZ0Ylw8XHDCQzkcvCz7NnixZ8IIGU6OQ"
+
+user:
+  password:
+    # 密码最大错误次数
+    maxRetryCount: 5
+    # 密码锁定时间（默认10分钟）
+    lockTime: 10
+    defaultPwd: 123456
+    privateKey: MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJ9iAlsris6Ux9pYAuzOKCtq4vzsXwHtec3gSG2ZqiLN3OxzPn7gR2Nh_WOMEwR-7C1xpoRh6_2_QkqHx0xxq5zJb6sE6-Kt0jowA1vPgbXBJCr1tY6aWjUtCe7Z2dn6-PVpY8hal9dhwJjOGJghUZEA_jN7LrHapvOaM67MLAqdAgMBAAECgYEAmFArfEEiR8V7MDhHo1JopQViot6o9MijTJH35XWiV9xwMi74HHvs_RbZ9lYYnoVE4zDnNz_1LOuoSF11oqJGou2akJHi-90LhP2iQlJ7ibPEB-aK4xJCo0d_yy6AkjVQEockk14_zNdYy4gaO34sDIUNYU9XYy_levaotPaevoECQQDbkN1C-uo9GMYtZJnjEerhEVMQEK7bP_14CmYjW-73pSotd0O3C0jz0I83Fp4BMT4-Pjvw_Y2JzfM0wtMKxxRRAkEAudSTe_9zDH5KYvlFcJxQEK7nx1o6zZb2NVlyskZK3YROEeZgaX5eSD6FojNECLLXRd55fJHPHFpw4B2-qdO6jQJAVKTvN7AldzJCzCMZVDmHFAcqv2m_DxUHMSzJHV6GrH_G18o_l6RJFn1TiMg2V31VYod5cjk9RF_aH3_v_hqrUQJADhQJvFok-CxVLFxgI2DkO-9URekTDWJDctU8-D6VC2UrmPWQFk3pjKWX8CrcG6CY6IUrRQGy5B4B8SivuiP9PQJAJak9JR2G-BRuZFhilCFMHDSrca2fcLYkD0I9H-WPFZycA9Y-MFvod9-MRBKJoS75d60c_6m01pW98CS_arf-_A
+    publicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCfYgJbK4rOlMfaWALszigrauL87F8B7XnN4Ehtmaoizdzscz5-4EdjYf1jjBMEfuwtcaaEYev9v0JKh8dMcaucyW-rBOvirdI6MANbz4G1wSQq9bWOmlo1LQnu2dnZ-vj1aWPIWpfXYcCYzhiYIVGRAP4zey6x2qbzmjOuzCwKnQIDAQAB
+  permission: false
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
