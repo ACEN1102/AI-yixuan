@@ -9,9 +9,6 @@ server:
     mime-types: application/json
 
 spring:
-  config:
-    activate:
-      on-profile: mysql
   redis:
     # 地址
     host: 10.3.70.211    # 119.91.231.160
@@ -36,7 +33,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
     driver-class-name: com.mysql.cj.jdbc.Driver # Mysql数据库驱动包
-    url: jdbc:mysql://119.91.231.160:3306/psimgr_test?useUnicode=true&characterEncoding=utf-8&useSSL=true
+    url: jdbc:mysql://119.91.231.160:3306/ai-yixuan?useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
     password: tj199911
 

@@ -1,5 +1,12 @@
 package com.digitalchina.aiyixuan;
 
+import cn.hutool.http.HttpResponse;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.digitalchina.aiyixuan.model.DTO.WeatherDTO;
+import com.digitalchina.aiyixuan.service.Impl.WeatherService;
 import com.unfbx.chatgpt.OpenAiClient;
 import com.unfbx.chatgpt.OpenAiStreamClient;
 import com.unfbx.chatgpt.entity.chat.ChatCompletion;
@@ -12,11 +19,13 @@ import com.unfbx.chatgpt.sse.ConsoleEventSourceListener;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -130,5 +139,28 @@ class AiYixuanApplicationTests {
             System.out.println(e.getMessage());
         });
 
+    }
+
+    @Test
+    public void test5(){
+        HttpResponse execute = HttpUtil.createGet("http://t.weather.itboy.net/api/weather/city/101200101").execute();
+
+        if (execute.isOk()) {
+            JSONObject jsonObject = JSON.parseObject(execute.body(), JSONObject.class);
+            JSONObject data = jsonObject.getObject("data", JSONObject.class);
+            JSONArray forecasts = data.getJSONArray("forecast");
+            JSONObject forecast = JSON.parseObject(forecasts.get(0).toString(), JSONObject.class);
+            System.out.println(forecast);
+        }
+    }
+
+    @Autowired
+    private WeatherService weatherService;
+
+
+    @Test
+    public void test6(){
+        WeatherDTO weatherDTO = weatherService.getWeather("襄阳");
+        System.out.println(weatherDTO);
     }
 }
